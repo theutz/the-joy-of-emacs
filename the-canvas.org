@@ -15,42 +15,133 @@ you, you *can* learn how Emacs works, and when you do, there's no end
 to the joy it will bring to your life.
 
 While we're learning, I'll include some inspirational quotes from Bob
-Ross. Because everyone deserves a little happiness in their editor.
+Ross. Because everyone deserves a little happiness in their text
+editor.
 
 #+BEGIN_QUOTE
 “I really believe that if you practice enough you could paint the
 'Mona Lisa' with a two-inch brush.”
 #+END_QUOTE
 
-* Prepping the Canvas
+* Some Basic Ideas
 
-** Emacs & VIM
-
-I used VIM for years, and I try to use it's keybindings
-everywhere. Luckily, Emacs makes that super easy with a package called
-[[https://github.com/emacs-evil/evil][Evil]].
-
-** How to Get Around
+** Emacs Lisp -- The Most Powerful Palette
 
    #+BEGIN_QUOTE
-   “We don’t really know where this goes — and I’m not sure we really
-   care.”
+   “However you think it should be, that’s exactly how it should be.”
    #+END_QUOTE
 
-   If you're new to Emacs and VIM, there's probably a lot of stuff
-   going on that you don't know about. That's ok! Here's some basics
-   to help you out:
+   Emacs comes with a Turing-complete programming lanuage called
+   **Emacs Lisp**. In fact, /most/ of Emacs is actually built using
+   Emacs Lisp. When you run an instance of Emacs, you're simply
+   starting a Lisp environment which then runs the Emacs program for
+   you.
 
-   | Key | Cursor motion |
-   |-----+---------------|
-   | h   | Move left     |
-   | j   | Move down     |
-   | k   | Move up       |
-   | l   | Move right    |
+   Because of this powerful setup, Emacs is /incredibly/
+   customizable. In this configuration, we will use Emacs Lisp (or
+   /elisp/ as it's sometimes called) to do some amazing things.
 
-   To visit a link, put the cursor on [[https://zenofbobross.tumblr.com][a link like this]] and press the
-   =Enter= or =Return= key. (This key is often referred to in the
-   documentation as =RET=).
+   To get a handle on the basics of elisp, you can visit
+   [[https://learnxinyminutes.com/docs/elisp/][Learn X in Y Minutes]], where they have a nice cheat sheet for
+   you. Don't feel like you have to go there now--I'll be helping you
+   along here as well.
 
-   If you want a fun way to learn how VIM motions work, I recommend
-   checking out the online game [[https://vim-adventures.com][VIM Adventures]].
+** Packages -- Shortcuts to Success
+
+   #+BEGIN_QUOTE
+   “You can have anything you want in the world — once you help
+   everyone around you get what they want.”
+   #+END_QUOTE
+
+   Emacs makes it dead simple to use other people's code in your own
+   editor. This code is written, distributed, and consumed in little
+   units called /packages/.
+
+   There are a number of ways to download and install packages in
+   Emacs--not the least of which is through the ever-popular
+   [[https://github.com/jwiegley/use-package][use-package]] package.
+
+   While `use-package` is an outstanding tool, in /The Joy of Emacs/,
+   we will not be using it. Instead, we'll use a package called
+   [[https://github.com/raxod502/straight.el][straight.el]] to download our packages, and from there we'll use elisp
+   directly to handle the loading and setup of the packages.
+
+   Is there any advantage to this? Not really. It just gives us a
+   chance to better understand and control what's going on
+   under-the-hood.
+
+** +Emacs vs. Vim+ Emacs + Vim
+
+   There has been a long-standing rivalry between users of Emacs and
+   users of Vim. Both of them are fantastic text editors.
+
+   I used Vim for years, and I try to use it's keybindings
+   everywhere.
+
+   Luckily, there is an Emacs package called [[https://github.com/emacs-evil/evil][Evil]] that is, hands-down,
+   the best Vim emulator I've ever used. I've installed it here, and if
+   you're reading this file in Emacs, you'll notice you can do almost
+   anything you would do in Vim already!
+
+   #+BEGIN_QUOTE
+   “Didn’t you know you had that much power? You can move
+   mountains. You can do anything.”
+   #+END_QUOTE
+
+** For Non-Vim-Converts
+
+    #+BEGIN_QUOTE
+    “We don’t really know where this goes — and I’m not sure we really
+    care.”
+    #+END_QUOTE
+
+    If you're new to Emacs and Vim, there's probably a lot of stuff
+    going on in this config that you don't know about. That's ok!
+    Here's some basics to help you out:
+
+    | Key | Cursor motion |
+    |-----+---------------|
+    | h   | Move left     |
+    | j   | Move down     |
+    | k   | Move up       |
+    | l   | Move right    |
+
+    To visit a link, put the cursor on [[https://zenofbobross.tumblr.com][a link like this]] and press the
+    =Enter= or =Return= key. (This key is often referred to in the
+    documentation as =RET=).
+
+    If you want a fun way to learn how Vim motions work, I recommend
+    checking out the online game [[https://vim-adventures.com][Vim Adventures]].
+
+** Literate Programming, or "WTF is this that I'm reading?"
+
+   One feature Emacs is, perhaps, most famous for is Org Mode. At it's
+   simplest, Org Mode is a package for Emacs that provides some really
+   cool ways of preparing your thoughts, keeping track of tasks, and
+   much, much more.
+
+   In fact, the file you're reading right now is a =.org= file. Org
+   Mode gives us the ability to add style to our text, like /this/ or
+   *this* or _this_.
+
+   And it also lets us write code blocks that can then be /loaded/
+   and /executed/ by Emacs itself! And /that/ is what this file
+   is. It's a narrative wrapper around my Emacs config.
+
+*** Wait, /what/!?!
+
+    I know.
+
+    Up to this point, there hasn't been any code, so this is hard to
+    understand. But, let's fix that. [[#joy-config-start][Follow this link]] to see it in action.
+
+*** Learn More about Org
+
+   Wanna learn more about Org Mode? [[https://orgmode.org][Visit their website]] and read their
+   extensive documentation.
+
+* Some Basic Configuration
+  :PROPERTIES:
+  :CUSTOM_ID: joy-config-start
+  :END:
+
