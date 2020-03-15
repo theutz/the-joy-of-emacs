@@ -1,0 +1,56 @@
+#+TITLE: The Joy of Emacs
+#+AUTHOR: Michael Utz <michael@theutz.com>
+#+STARTUP: org-startup-with-inline-images inlineimages
+#+STARTUP: content
+
+[[./images/bob-ross.jpg]]
+
+Hello, I'm +Bob Ross+ Michael Utz, and I'd like to welcome you to *The
+Joy of Emacs*. I'd you to get out your brushes and canvas :art: and follow
+along with us today.
+
+If you're like me, you always /wanted/ to learn how your Emacs worked,
+but it just seemed like too much of a hassle. Well, I'm here to tell
+you, you *can* learn how Emacs works, and when you do, there's no end
+to the joy it will bring to your life.
+
+While we're learning, I'll include some inspirational quotes from Bob
+Ross. Because everyone deserves a little happiness in their editor.
+
+#+BEGIN_QUOTE
+“I really believe that if you practice enough you could paint the
+'Mona Lisa' with a two-inch brush.”
+#+END_QUOTE
+
+* Prepping the Canvas
+
+** Emacs & VIM
+
+I used VIM for years, and I try to use it's keybindings
+everywhere. Luckily, Emacs makes that super easy with a package called
+[[https://github.com/emacs-evil/evil][Evil]].
+
+** How to Get Around
+
+   #+BEGIN_QUOTE
+   “We don’t really know where this goes — and I’m not sure we really
+   care.”
+   #+END_QUOTE
+
+   If you're new to Emacs and VIM, there's probably a lot of stuff
+   going on that you don't know about. That's ok! Here's some basics
+   to help you out:
+
+   | Key | Cursor motion |
+   |-----+---------------|
+   | h   | Move left     |
+   | j   | Move down     |
+   | k   | Move up       |
+   | l   | Move right    |
+
+   To visit a link, put the cursor on [[https://zenofbobross.tumblr.com][a link like this]] and press the
+   =Enter= or =Return= key. (This key is often referred to in the
+   documentation as =RET=).
+
+   If you want a fun way to learn how VIM motions work, I recommend
+   checking out the online game [[https://vim-adventures.com][VIM Adventures]].
