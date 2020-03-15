@@ -90,28 +90,28 @@ editor.
 
 ** For Non-Vim-Converts
 
-    #+BEGIN_QUOTE
-    “We don’t really know where this goes — and I’m not sure we really
-    care.”
-    #+END_QUOTE
+   #+BEGIN_QUOTE
+   “We don’t really know where this goes — and I’m not sure we really
+   care.”
+   #+END_QUOTE
 
-    If you're new to Emacs and Vim, there's probably a lot of stuff
-    going on in this config that you don't know about. That's ok!
-    Here's some basics to help you out:
+   If you're new to Emacs and Vim, there's probably a lot of stuff
+   going on in this config that you don't know about. That's ok!
+   Here's some basics to help you out:
 
-    | Key | Cursor motion |
-    |-----+---------------|
-    | h   | Move left     |
-    | j   | Move down     |
-    | k   | Move up       |
-    | l   | Move right    |
+   | Key | Cursor motion |
+   |-----+---------------|
+   | h   | Move left     |
+   | j   | Move down     |
+   | k   | Move up       |
+   | l   | Move right    |
 
-    To visit a link, put the cursor on [[https://zenofbobross.tumblr.com][a link like this]] and press the
-    =Enter= or =Return= key. (This key is often referred to in the
-    documentation as =RET=).
+   To visit a link, put the cursor on [[https://zenofbobross.tumblr.com][a link like this]] and press the
+   =Enter= or =Return= key. (This key is often referred to in the
+   documentation as =RET=).
 
-    If you want a fun way to learn how Vim motions work, I recommend
-    checking out the online game [[https://vim-adventures.com][Vim Adventures]].
+   If you want a fun way to learn how Vim motions work, I recommend
+   checking out the online game [[https://vim-adventures.com][Vim Adventures]].
 
 ** Literate Programming, or "WTF is this that I'm reading?"
 
@@ -137,11 +137,374 @@ editor.
 
 *** Learn More about Org
 
-   Wanna learn more about Org Mode? [[https://orgmode.org][Visit their website]] and read their
-   extensive documentation.
+    Wanna learn more about Org Mode? [[https://orgmode.org][Visit their website]] and read their
+    extensive documentation.
 
-* Some Basic Configuration
+* Preparing Our Palette
   :PROPERTIES:
   :CUSTOM_ID: joy-config-start
   :END:
 
+  #+BEGIN_QUOTE
+  “Every day is a good day when you paint.”
+  #+END_QUOTE
+
+  One of the first things I'm going to do is set up some configuration
+  variables that I'll reference later on in my setup:
+
+** The Joy Directory
+
+   #+BEGIN_SRC emacs-lisp
+    (defconst joy-emacs-directory user-emacs-directory)
+   #+END_SRC
+
+   Let's break down what happened there. Lisp is famous for it's
+   extensive use of parentheses. It's something that you grow to love
+   in time, but might seem complicated at first. Don't be afraid.
+
+   =defconst= means "define constant", and it's the name of the
+   function that we're calling inside the parentheses.
+
+   =joy-emacs-directory= is the name of the constant that we're
+   defining. I just made it up. It's the first argument to =defconst=.
+
+   =user-emacs-directory= is a variable whose value comes from Emacs
+   itself, and that value is probably something like
+   =<HOME/.emacs.d=. This variable is where Emacs looks for it's
+   configuration information when it starts up.
+
+   So, now, putting those ideas together we have one complete thought:
+   /"define a constant named 'joy-emacs-directory' whose value is \\
+   whatever the 'user-emacs-directory' variable holds"./
+
+   We don't /have/ to define a separate variable for this, but I like
+   to do it so that the word /joy/ shows up more in my code.
+
+   #+BEGIN_QUOTE
+   “[Painting] will bring a lot of good thoughts to your heart.”
+   #+END_QUOTE
+
+*** Constants vs. Variables
+
+    Do we have to use =defconst= for this? No, we don't. A constant
+    will only be evaluted /once/ as Emacs is loaded, however. And,
+    since this is a pretty important value, I decided to use that
+    "extra" protection. But it's not necessary.
+
+** The Joy Init File
+
+   In order to bootstrap the process of turning this lovely, long,
+   wordy document into code that Emacs can use, we actually need a few
+   lines of code to get going.
+
+   When Emacs boots, it looks for a file called =init.el= that lives
+   in the =user-emacs-directory=, and it executes that code.
+
+   You may have noticed that we do, in fact, have [[./init.el][just such a file]]. In
+   the file, we load up [[./straight/repos/straight.el/README.md][straight.el]] to download our packages. We then
+   load =org-mode=, which we use to load /this file/ we're reading
+   right now.
+
+   #+BEGIN_SRC emacs-lisp
+    (defconst joy-init-file
+      (expand-file-name "init.el" joy-emacs-directory))
+   #+END_SRC
+
+   Let's break down any /new/ bits from the code above. Firstly,
+   you'll notice there are two sets of parentheses. These
+   "sets of parentheses" actually have a proper name: /s-expression/s
+   or /sexp/s. We'll use that from now on.
+
+   The inner sexp is a function called =expand-file-name= that takes
+   two arguments. The first argument is a file name, and the second
+   argument is a file path. It returns a well-formed file path that
+   combines those two elements in the form of a /string/.
+
+   This return value is then fed into =defconst=, where it is assigned
+   to the symbol =joy-init-file=. And that's all there is to it!
+
+** Other Joy Files
+
+   The remaining files are all defined the same way, so I won't take
+   time to re-explain what's going on in the code here.
+
+   I will, however, take time to explain how we plan to use those locations.
+
+   #+BEGIN_SRC emacs-lisp
+    (defconst joy-config-file (expand-file-name "the-canvas.org" joy-emacs-directory))
+   #+END_SRC
+
+   This is the location of the curent file we're reading.
+
+   #+BEGIN_SRC emacs-lisp
+    (defconst joy-custom-file
+      (expand-file-name ".custom.el" joy-emacs-directory))
+   #+END_SRC
+
+   Emacs has an user interface for customizing a number of it's
+   features. In my opinion, it's kinda klunky and difficult to
+   use. When you make a change, it saves those changes in a file which
+   you can then load into your config later. This is where we will
+   save those changes.
+
+   However, we will not ever load those changes. We don't like the
+   customize inteface very much. We'd rather paint our own picture.
+
+   #+BEGIN_QUOTE
+   “We want happy paintings. Happy paintings. If you want sad things,
+   watch the news.”
+   #+END_QUOTE
+
+   #+BEGIN_SRC emacs-lisp
+    (defconst joy-theme-directory
+      (expand-file-name "themes" joy-emacs-directory))
+
+    (defconst joy-theme-file
+      (expand-file-name "joy-theme.el" joy-theme-directory))
+   #+END_SRC
+
+   Later on, we'll be defining some of the visual elements in Emacs,
+   and those elements need to live /somewhere/. Well, here's where!
+
+   #+BEGIN_SRC emacs-lisp
+    (defconst joy-snippets-directory
+      (expand-file-name "snippets" joy-emacs-directory))
+   #+END_SRC
+
+   Who doesn't love a good snippet? I mean, I know I do. And we'll
+   need a place to put them, too!
+
+* Our First Happy Strokes
+
+  #+BEGIN_QUOTE
+  “The secret to doing anything is believing that you can do
+  it. Anything that you believe you can do strong enough, you can
+  do. Anything. As long as you believe.”
+  #+END_QUOTE
+
+  Up to this point, we haven't actually, really /done/ anything. We've
+  saved some nice constants, but we haven't made any changes to Emacs.
+
+  That ends now. So, pickup your brush and start painting!
+
+** An Introduction to Modes
+
+   /Modes/ are a very powerful idea in Emacs. Every time you open a
+   file, Emacs tries to decide what /Major Mode/ to use. Often times,
+   this is simply a package that knows how to work with files in that
+   language. For instance, there is a =markdown-mode=, a =lisp-mode=,
+   an =html-mode=, etc. For any given file, there is only *one* major
+   mode running at any given time.
+
+   /Minor Modes/, on the other hand, can run alongside the major mode,
+   as well as alongside each other. Emacs and package authors use
+   minor modes for all kinds of things. It's not uncommon for dozens
+   of minor modes to be running all the time.
+
+   As an example, here's our very first customization of a minor mode:
+
+   #+BEGIN_SRC emacs-lisp
+     (tool-bar-mode 0)
+   #+END_SRC
+
+   In this line of code, we're actually turning /off/ some of Emacs'
+   default behavior. Normally, when you open a window, you see an ugly
+   toolbar like this:
+
+   [[./images/tool-bar.png]]
+
+   But because of =(tool-bar-mode 0)=, we won't see it at all! :100:
+
+   Now, here's an example of turning behavior /on/ with a mode:
+
+   #+BEGIN_SRC emacs-lisp
+     (global-display-line-numbers-mode 1)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+  (menu-bar-mode 0)
+  (scroll-bar-mode 0)
+  (setq inhibit-startup-screen t
+	initial-scratch-message nil
+	display-line-numbers-type 'visual)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (defun joy/load-config-file ()
+       "Load configuration file all over again."
+       (interactive)
+       (org-babel-load-file joy-config-file))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (defun joy/edit-config-file ()
+       "Edit the configs."
+       (interactive)
+       (find-file joy-config-file))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (defun joy/edit-theme-file (x)
+       "Edit my custom theme. `C-u` visits it in customize."
+       (interactive "p")
+       (cond ((eq 4 x) (custom-theme-visit-theme 'joy))
+	     (t (find-file joy-theme-file))))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (straight-use-package 'evil)
+     (require 'evil)
+     (evil-mode 1)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (with-eval-after-load 'evil
+       (straight-use-package 'evil-org)
+       (require 'evil-org)
+       (add-hook 'org-mode-hook 'evil-org-mode)
+       (add-hook 'evil-org-mode-hook
+		 (lambda ()
+		   (evil-org-set-key-theme)))
+       (require 'evil-org-agenda)
+       (evil-org-agenda-set-keys))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (with-eval-after-load 'evil
+       (with-eval-after-load 'magit
+	 (straight-use-package 'evil-magit)
+	 (require 'evil-magit)))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (straight-use-package 'general)
+     (require 'general)
+
+     (general-create-definer joy/set-leader-key
+       :prefix "SPC"
+       :non-normal-prefix "M-SPC"
+       :keymaps '(normal insert emacs visual))
+
+     (general-create-definer joy/set-localleader-key
+       :prefix ","
+       :non-normal-prefix "M-,")
+
+     (general-create-definer joy/set-help-key
+       :prefix "C-h")
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (straight-use-package 'which-key)
+     (require 'which-key)
+     (which-key-mode)
+     (which-key-setup-side-window-right-bottom)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+   (straight-use-package 'restart-emacs)
+   (require 'restart-emacs)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (straight-use-package 'helm)
+     (require 'helm)
+     (helm-mode 1)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+    (straight-use-package 'emojify)
+    (require 'emojify)
+
+    (add-hook 'after-init-hook #'global-emojify-mode)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+    (straight-use-package 'magit)
+    (require 'magit)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+    (straight-use-package 'helpful)
+    (require 'helpful)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+    (straight-use-package 'org-preview-html)
+    (require 'org-preview-html)
+
+    (straight-use-package 'htmlize)
+    (require 'htmlize)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+    (straight-use-package 'yasnippet)
+    (require 'yasnippet)
+
+    (setq yas-snippet-dirs `(,joy-snippets-directory)
+	yas-verbosity 2)
+
+    (yas-global-mode 1)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (straight-use-package 'paredit)
+     (autoload 'enable-paredit-mode "paredit"
+       "Turn on pseduo-structural editing of lisp code"
+       t)
+
+     (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+     (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+     (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+     (add-hook 'scheme-mode-hook 'enable-paredit-mode)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+    (general-define-key :states '(normal)
+			"RET" '(org-open-at-point :wk "HAPPY Open"))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (joy/set-leader-key "" '(:ignore t :wk "HAPPY Leader")
+       "SPC" '(helm-M-x :wk "HAPPY M-x"))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (joy/set-leader-key :infix "g"
+       "" '(:ignore t :wk "HAPPY Git")
+       "s" '(magit-status :wk "Status"))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+    (joy/set-leader-key :infix "f"
+      "" '(:ignore t :wk "HAPPY Files")
+      "s" '(save-buffer :wk "HAPPY Save"))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (joy/set-leader-key :infix "f j"
+       "" '(:ignore t :wk "HAPPY Config")
+       "e" '(joy/edit-config-file :wk "Edit")
+       "r" '(joy/load-config-file :wk "Reload"))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (straight-use-package 'evil-surround)
+     (require 'evil-surround)
+     (global-evil-surround-mode 1)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (joy/set-localleader-key :states '(normal)
+       :keymaps '(org-mode-map)
+       "'" '(org-edit-special :wk "Edit Special"))
+
+     (add-hook 'org-src-mode-hook (lambda ()
+       (joy/set-localleader-key :states '(normal)
+	 :keymaps '(org-src-mode-map)
+	 "'" '(org-edit-src-exit :wk "Exit"))))
+   #+END_SRC

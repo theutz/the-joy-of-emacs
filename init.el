@@ -9,7 +9,7 @@
 ;; ------
 
 (let ((gc-cons-threshold most-positive-fixnum))
-  
+
   ;;; straight.el
   ;; ------------
   ;; "There's nothing wrong with having a tree as a friend."
@@ -30,14 +30,20 @@
   ;;; org-mode
   ;; ---------
   ;; “No pressure. Just relax and watch it happen.”
-  
+
   (straight-use-package 'org)
   (require 'org)
+
+  ;;; load =the-canvas.org=
+  ;; ----------------------
+  ;; Here's where we /actually/ configure Emacs.
 
   (org-babel-load-file
    (expand-file-name "the-canvas.org" user-emacs-directory))
 
-  ;; “See how it fades right into nothing. That’s just what you’re looking for.”
+  ;; “In painting, you have unlimited power. You have the ability to
+  ;; move mountains. You can bend rivers. But when I get home, the
+  ;; only thing I have power over is the garbage.”
   (garbage-collect))
 
 (provide 'init)
