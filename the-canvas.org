@@ -287,7 +287,7 @@ editor.
 
   That ends now. So, pickup your brush and start painting!
 
-** An Introduction to Modes
+** An Brief Introduction to Modes
 
    /Modes/ are a very powerful idea in Emacs. Every time you open a
    file, Emacs tries to decide what /Major Mode/ to use. Often times,
@@ -303,6 +303,8 @@ editor.
 
    As an example, here's our very first customization of a minor mode:
 
+*** Turning a Minor Mode /Off/
+
    #+BEGIN_SRC emacs-lisp
      (tool-bar-mode 0)
    #+END_SRC
@@ -315,20 +317,65 @@ editor.
 
    But because of =(tool-bar-mode 0)=, we won't see it at all! :100:
 
-   Now, here's an example of turning behavior /on/ with a mode:
+*** Turning a Minor Mode /On/
 
-   #+BEGIN_SRC emacs-lisp
+    Now, here's an example of turning behavior /on/ with a mode:
+
+    #+BEGIN_SRC emacs-lisp
      (global-display-line-numbers-mode 1)
-   #+END_SRC
+    #+END_SRC
+
+    :arrow_left: This bit of code turns on the line numbers in the left
+    gutter of the screen.
+
+*** Other Convenient Minor Mode Settings
+
+    Here's some other defaults I like:
+
+    #+BEGIN_SRC emacs-lisp
+     (show-paren-mode 1)
+    #+END_SRC
+
+    To learn more about this minor mode, hover your cursor over the
+    text =show-paren-mode= and type =SPC h f=.
+
+    (Don't know what =SPC h f= means? It means type these three keys,
+    one after the other: 1) the space bar, 2) the "h" key, and 3) the
+    "f" key. There's a name for keyboard commands typed in sequence
+    like this: /key chords/. They're used extensively in Emacs.)
+
+    #+BEGIN_SRC emacs-lisp
+     ;; Don't items in the OS' menu bar
+     (menu-bar-mode 0)
+    #+END_SRC
+
+    Notice the lines above that start with =;;=? Those are comments in
+    Emacs Lisp. In fact, you only need one =;= to start a comment. But
+    it's common to use the number of colons to indicate the "document"
+    structure, in some sense. Here's an example:
+
+    #+BEGIN_SRC emacs-lisp
+      ;;;; This is a file header comment. It should only appear once in a document.
+
+      ;;; This is a section header comment. You can have as many as you like.
+
+      ;; This is a comment that goes above the line it's
+      ;; meant to comment on.
+      (scroll-bar-mode 0) ; and this goes inline with it.
+    #+END_SRC
+
+    What does the code up there actually do, then? It just hides
+    scroll bars. I don't like 'em. :smile:
+
+** Setting Options with Variables
 
    #+BEGIN_SRC emacs-lisp
-  (show-paren-mode 1)
-  (menu-bar-mode 0)
-  (scroll-bar-mode 0)
-  (setq inhibit-startup-screen t
-	initial-scratch-message nil
-	display-line-numbers-type 'visual)
+     (setq inhibit-startup-screen t
+	   initial-scratch-message nil
+	   display-line-numbers-type 'visual)
    #+END_SRC
+
+* TODO Write this stuff up
 
    #+BEGIN_SRC emacs-lisp
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -429,8 +476,18 @@ editor.
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
-    (straight-use-package 'helpful)
-    (require 'helpful)
+     (straight-use-package 'helpful)
+     (require 'helpful)
+
+     (joy/set-leader-key :infix "h"
+       "" `(,(general-simulate-key "C-h") :wk "HAPPY Help"))
+
+     (joy/set-help-key "f" '(helpful-callable :wk "Callable")
+       "v" '(helpful-variable :wk "Variable")
+       "x" '(helpful-at-point :wk "At Point")
+       "k" '(helpful-at-key :wk "Key")
+       "F" '(helpful-function :wk "Function")
+       "c" '(helpful-command :wk "Command"))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
