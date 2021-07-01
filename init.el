@@ -3,7 +3,7 @@
 
 ;;; Commentary:
 ;; ------------
-;; "We don't have mistakes. We just have happy accidents."
+;; "We don't have mistakes.  We just have happy accidents."
 
 ;;; Code:
 ;; ------
@@ -31,8 +31,9 @@
   ;; ---------
   ;; “No pressure. Just relax and watch it happen.”
 
-  (straight-use-package 'org)
-  (require 'org)
+  (straight-use-package 'use-package)
+
+  (use-package org)
 
   ;;; load =the-canvas.org=
   ;; ----------------------
@@ -47,4 +48,9 @@
   (garbage-collect))
 
 (provide 'init)
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+
 ;;; init.el ends here
