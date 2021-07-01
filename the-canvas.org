@@ -27,391 +27,397 @@ editor.
 
 ** Emacs Lisp -- The Most Powerful Palette
 
-   #+BEGIN_QUOTE
-   “However you think it should be, that’s exactly how it should be.”
-   #+END_QUOTE
+#+BEGIN_QUOTE
+“However you think it should be, that’s exactly how it should be.”
+#+END_QUOTE
 
-   Emacs comes with a Turing-complete programming lanuage called
-   **Emacs Lisp**. In fact, /most/ of Emacs is actually built using
-   Emacs Lisp. When you run an instance of Emacs, you're simply
-   starting a Lisp environment which then runs the Emacs program for
-   you.
+Emacs comes with a Turing-complete programming lanuage called
+**Emacs Lisp**. In fact, /most/ of Emacs is actually built using
+Emacs Lisp. When you run an instance of Emacs, you're simply
+starting a Lisp environment which then runs the Emacs program for
+you.
 
-   Because of this powerful setup, Emacs is /incredibly/
-   customizable. In this configuration, we will use Emacs Lisp (or
-   /elisp/ as it's sometimes called) to do some amazing things.
+Because of this powerful setup, Emacs is /incredibly/
+customizable. In this configuration, we will use Emacs Lisp (or
+/elisp/ as it's sometimes called) to do some amazing things.
 
-   To get a handle on the basics of elisp, you can visit
-   [[https://learnxinyminutes.com/docs/elisp/][Learn X in Y Minutes]], where they have a nice cheat sheet for
-   you. Don't feel like you have to go there now--I'll be helping you
-   along here as well.
+To get a handle on the basics of elisp, you can visit
+[[https://learnxinyminutes.com/docs/elisp/][Learn X in Y Minutes]], where they have a nice cheat sheet for
+you. Don't feel like you have to go there now--I'll be helping you
+along here as well.
 
 ** Packages -- Shortcuts to Success
 
-   #+BEGIN_QUOTE
-   “You can have anything you want in the world — once you help
-   everyone around you get what they want.”
-   #+END_QUOTE
+#+BEGIN_QUOTE
+“You can have anything you want in the world — once you help
+everyone around you get what they want.”
+#+END_QUOTE
 
-   Emacs makes it dead simple to use other people's code in your own
-   editor. This code is written, distributed, and consumed in little
-   units called /packages/.
+Emacs makes it dead simple to use other people's code in your own
+editor. This code is written, distributed, and consumed in little
+units called /packages/.
 
-   There are a number of ways to download and install packages in
-   Emacs--not the least of which is through the ever-popular
-   [[https://github.com/jwiegley/use-package][use-package]] package.
+There are a number of ways to download and install packages in
+Emacs--not the least of which is through the ever-popular
+[[https://github.com/jwiegley/use-package][use-package]] package.
 
-   In addition to that, we will be using [[https://github.com/raxod502/straight.el][straight.el]] to help us keep
-   our packages local and well built. This should be mostly
-   transparent after it's setup properly.
+In addition to that, we will be using [[https://github.com/raxod502/straight.el][straight.el]] to help us keep
+our packages local and well built. This should be mostly
+transparent after it's setup properly.
 
 ** +Emacs vs. Vim+ Emacs + Vim
 
-   There has been a long-standing rivalry between users of Emacs and
-   users of Vim. Both of them are fantastic text editors.
+There has been a long-standing rivalry between users of Emacs and
+users of Vim. Both of them are fantastic text editors.
 
-   I used Vim for years, and I try to use it's keybindings
-   everywhere.
+I used Vim for years, and I try to use it's keybindings
+everywhere.
 
-   Luckily, there is an Emacs package called [[https://github.com/emacs-evil/evil][Evil]] that is, hands-down,
-   the best Vim emulator I've ever used. I've installed it here, and if
-   you're reading this file in Emacs, you'll notice you can do almost
-   anything you would do in Vim already!
+Luckily, there is an Emacs package called [[https://github.com/emacs-evil/evil][Evil]] that is, hands-down,
+the best Vim emulator I've ever used. I've installed it here, and if
+you're reading this file in Emacs, you'll notice you can do almost
+anything you would do in Vim already!
 
-   #+BEGIN_QUOTE
-   “Didn’t you know you had that much power? You can move
-   mountains. You can do anything.”
-   #+END_QUOTE
+#+BEGIN_QUOTE
+“Didn’t you know you had that much power? You can move
+mountains. You can do anything.”
+#+END_QUOTE
 
 ** For Non-Vim-Converts
 
-   #+BEGIN_QUOTE
-   “We don’t really know where this goes — and I’m not sure we really
-   care.”
-   #+END_QUOTE
+#+BEGIN_QUOTE
+“We don’t really know where this goes — and I’m not sure we really
+care.”
+#+END_QUOTE
 
-   If you're new to Emacs and Vim, there's probably a lot of stuff
-   going on in this config that you don't know about. That's ok!
-   Here's some basics to help you out:
+If you're new to Emacs and Vim, there's probably a lot of stuff
+going on in this config that you don't know about. That's ok!
+Here's some basics to help you out:
 
-   | Key | Cursor motion |
-   |-----+---------------|
-   | h   | Move left     |
-   | j   | Move down     |
-   | k   | Move up       |
-   | l   | Move right    |
+| Key | Cursor motion |
+|-----+---------------|
+| h   | Move left     |
+| j   | Move down     |
+| k   | Move up       |
+| l   | Move right    |
 
-   To visit a link, put the cursor on [[https://zenofbobross.tumblr.com][a link like this]] and press the
-   =Enter= or =Return= key. (This key is often referred to in the
-   documentation as =RET=).
+To visit a link, put the cursor on [[https://zenofbobross.tumblr.com][a link like this]] and press the
+=Enter= or =Return= key. (This key is often referred to in the
+documentation as =RET=).
 
-   If you want a fun way to learn how Vim motions work, I recommend
-   checking out the online game [[https://vim-adventures.com][Vim Adventures]].
+If you want a fun way to learn how Vim motions work, I recommend
+checking out the online game [[https://vim-adventures.com][Vim Adventures]].
 
 ** Literate Programming, or "WTF is this that I'm reading?"
 
-   One feature Emacs is, perhaps, most famous for is Org Mode. At it's
-   simplest, Org Mode is a package for Emacs that provides some really
-   cool ways of preparing your thoughts, keeping track of tasks, and
-   much, much more.
+One feature Emacs is, perhaps, most famous for is Org Mode. At it's
+simplest, Org Mode is a package for Emacs that provides some really
+cool ways of preparing your thoughts, keeping track of tasks, and
+much, much more.
 
-   In fact, the file you're reading right now is a =.org= file. Org
-   Mode gives us the ability to add style to our text, like /this/ or
-   *this* or _this_.
+In fact, the file you're reading right now is a =.org= file. Org
+Mode gives us the ability to add style to our text, like /this/ or
+*this* or _this_.
 
-   And it also lets us write code blocks that can then be /loaded/
-   and /executed/ by Emacs itself! And /that/ is what this file
-   is. It's a narrative wrapper around my Emacs config.
+And it also lets us write code blocks that can then be /loaded/
+and /executed/ by Emacs itself! And /that/ is what this file
+is. It's a narrative wrapper around my Emacs config.
 
 *** Wait, /what/!?!
 
-    I know.
+I know.
 
-    Up to this point, there hasn't been any code, so this is hard to
-    understand. But, let's fix that. [[#joy-config-start][Follow this link]] to see it in action.
+Up to this point, there hasn't been any code, so this is hard to
+understand. But, let's fix that. [[#joy-config-start][Follow this link]] to see it in action.
 
 *** Learn More about Org
 
-    Wanna learn more about Org Mode? [[https://orgmode.org][Visit their website]] and read their
-    extensive documentation.
+Wanna learn more about Org Mode? [[https://orgmode.org][Visit their website]] and read their
+extensive documentation.
 
 * Preparing Our Palette
-  :PROPERTIES:
-  :CUSTOM_ID: joy-config-start
-  :END:
+:PROPERTIES:
+:CUSTOM_ID: joy-config-start
+:END:
 
-  #+BEGIN_QUOTE
-  “Every day is a good day when you paint.”
-  #+END_QUOTE
+#+BEGIN_QUOTE
+“Every day is a good day when you paint.”
+#+END_QUOTE
 
-  One of the first things I'm going to do is set up some configuration
-  variables that I'll reference later on in my setup:
+One of the first things I'm going to do is set up some configuration
+variables that I'll reference later on in my setup:
 
 ** The Joy Directory
 
-   #+BEGIN_SRC emacs-lisp
-    (defconst joy-emacs-directory user-emacs-directory)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(defconst joy-emacs-directory user-emacs-directory)
+#+END_SRC
 
-   Let's break down what happened there. Lisp is famous for it's
-   extensive use of parentheses. It's something that you grow to love
-   in time, but might seem complicated at first. Don't be afraid.
+Let's break down what happened there. Lisp is famous for it's
+extensive use of parentheses. It's something that you grow to love
+in time, but might seem complicated at first. Don't be afraid.
 
-   =defconst= means "define constant", and it's the name of the
-   function that we're calling inside the parentheses.
+=defconst= means "define constant", and it's the name of the
+function that we're calling inside the parentheses.
 
-   =joy-emacs-directory= is the name of the constant that we're
-   defining. I just made it up. It's the first argument to =defconst=.
+=joy-emacs-directory= is the name of the constant that we're
+defining. I just made it up. It's the first argument to =defconst=.
 
-   =user-emacs-directory= is a variable whose value comes from Emacs
-   itself, and that value is probably something like
-   =<HOME/.emacs.d=. This variable is where Emacs looks for it's
-   configuration information when it starts up.
+=user-emacs-directory= is a variable whose value comes from Emacs
+itself, and that value is probably something like
+=<HOME/.emacs.d=. This variable is where Emacs looks for it's
+configuration information when it starts up.
 
-   So, now, putting those ideas together we have one complete thought:
-   /"define a constant named 'joy-emacs-directory' whose value is \\
-   whatever the 'user-emacs-directory' variable holds"./
+So, now, putting those ideas together we have one complete thought:
+/"define a constant named 'joy-emacs-directory' whose value is \\
+whatever the 'user-emacs-directory' variable holds"./
 
-   We don't /have/ to define a separate variable for this, but I like
-   to do it so that the word /joy/ shows up more in my code.
+We don't /have/ to define a separate variable for this, but I like
+to do it so that the word /joy/ shows up more in my code.
 
-   #+BEGIN_QUOTE
-   “[Painting] will bring a lot of good thoughts to your heart.”
-   #+END_QUOTE
+#+BEGIN_QUOTE
+“[Painting] will bring a lot of good thoughts to your heart.”
+#+END_QUOTE
 
 *** Constants vs. Variables
 
-    Do we have to use =defconst= for this? No, we don't. A constant
-    will only be evaluted /once/ as Emacs is loaded, however. And,
-    since this is a pretty important value, I decided to use that
-    "extra" protection. But it's not necessary.
+Do we have to use =defconst= for this? No, we don't. A constant
+will only be evaluted /once/ as Emacs is loaded, however. And,
+since this is a pretty important value, I decided to use that
+"extra" protection. But it's not necessary.
 
 ** The Joy Init File
 
-   In order to bootstrap the process of turning this lovely, long,
-   wordy document into code that Emacs can use, we actually need a few
-   lines of code to get going.
+In order to bootstrap the process of turning this lovely, long,
+wordy document into code that Emacs can use, we actually need a few
+lines of code to get going.
 
-   When Emacs boots, it looks for a file called =init.el= that lives
-   in the =user-emacs-directory=, and it executes that code.
+When Emacs boots, it looks for a file called =init.el= that lives
+in the =user-emacs-directory=, and it executes that code.
 
-   You may have noticed that we do, in fact, have [[./init.el][just such a file]]. In
-   the file, we load up [[./straight/repos/straight.el/README.md][straight.el]] to download our packages. We then
-   load =org-mode=, which we use to load /this file/ we're reading
-   right now.
+You may have noticed that we do, in fact, have [[./init.el][just such a file]]. In
+the file, we load up [[./straight/repos/straight.el/README.md][straight.el]] to download our packages. We then
+load =org-mode=, which we use to load /this file/ we're reading
+right now.
 
-   #+BEGIN_SRC emacs-lisp
-    (defconst joy-init-file
-      (expand-file-name "init.el" joy-emacs-directory))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(defconst joy-init-file
+    (expand-file-name "init.el" joy-emacs-directory))
+#+END_SRC
 
-   Let's break down any /new/ bits from the code above. Firstly,
-   you'll notice there are two sets of parentheses. These
-   "sets of parentheses" actually have a proper name: /s-expression/s
-   or /sexp/s. We'll use that from now on.
+Let's break down any /new/ bits from the code above. Firstly,
+you'll notice there are two sets of parentheses. These
+"sets of parentheses" actually have a proper name: /s-expression/s
+or /sexp/s. We'll use that from now on.
 
-   The inner sexp is a function called =expand-file-name= that takes
-   two arguments. The first argument is a file name, and the second
-   argument is a file path. It returns a well-formed file path that
-   combines those two elements in the form of a /string/.
+The inner sexp is a function called =expand-file-name= that takes
+two arguments. The first argument is a file name, and the second
+argument is a file path. It returns a well-formed file path that
+combines those two elements in the form of a /string/.
 
-   This return value is then fed into =defconst=, where it is assigned
-   to the symbol =joy-init-file=. And that's all there is to it!
+This return value is then fed into =defconst=, where it is assigned
+to the symbol =joy-init-file=. And that's all there is to it!
 
 ** Other Joy Files
 
-   The remaining files are all defined the same way, so I won't take
-   time to re-explain what's going on in the code here.
+The remaining files are all defined the same way, so I won't take
+time to re-explain what's going on in the code here.
 
-   I will, however, take time to explain how we plan to use those locations.
+I will, however, take time to explain how we plan to use those locations.
 
-   #+BEGIN_SRC emacs-lisp
-    (defconst joy-config-file (expand-file-name "the-canvas.org" joy-emacs-directory))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(defconst joy-config-file (expand-file-name "the-canvas.org" joy-emacs-directory))
+#+END_SRC
 
-   This is the location of the curent file we're reading.
+This is the location of the curent file we're reading.
 
-   #+BEGIN_SRC emacs-lisp
-    (defconst joy-custom-file
-      (expand-file-name ".custom.el" joy-emacs-directory))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(defconst joy-custom-file
+    (expand-file-name ".custom.el" joy-emacs-directory))
+#+END_SRC
 
-   Emacs has an user interface for customizing a number of it's
-   features. In my opinion, it's kinda klunky and difficult to
-   use. When you make a change, it saves those changes in a file which
-   you can then load into your config later. This is where we will
-   save those changes.
+Emacs has an user interface for customizing a number of it's
+features. In my opinion, it's kinda klunky and difficult to
+use. When you make a change, it saves those changes in a file which
+you can then load into your config later. This is where we will
+save those changes.
 
-   However, we will not ever load those changes. We don't like the
-   customize inteface very much. We'd rather paint our own picture.
+However, we will not ever load those changes. We don't like the
+customize inteface very much. We'd rather paint our own picture.
 
-   #+BEGIN_QUOTE
-   “We want happy paintings. Happy paintings. If you want sad things,
-   watch the news.”
-   #+END_QUOTE
+#+BEGIN_QUOTE
+“We want happy paintings. Happy paintings. If you want sad things,
+watch the news.”
+#+END_QUOTE
 
-   #+BEGIN_SRC emacs-lisp
-    (defconst joy-theme-directory
-      (expand-file-name "themes" joy-emacs-directory))
+#+BEGIN_SRC emacs-lisp
+(defconst joy-theme-directory
+    (expand-file-name "themes" joy-emacs-directory))
 
-    (defconst joy-theme-file
-      (expand-file-name "joy-theme.el" joy-theme-directory))
-   #+END_SRC
+(defconst joy-theme-file
+    (expand-file-name "joy-theme.el" joy-theme-directory))
+#+END_SRC
 
-   Later on, we'll be defining some of the visual elements in Emacs,
-   and those elements need to live /somewhere/. Well, here's where!
+Later on, we'll be defining some of the visual elements in Emacs,
+and those elements need to live /somewhere/. Well, here's where!
 
-   #+BEGIN_SRC emacs-lisp
-    (defconst joy-snippets-directory
-      (expand-file-name "snippets" joy-emacs-directory))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(defconst joy-snippets-directory
+    (expand-file-name "snippets" joy-emacs-directory))
+#+END_SRC
 
-   Who doesn't love a good snippet? I mean, I know I do. And we'll
-   need a place to put them, too!
+Who doesn't love a good snippet? I mean, I know I do. And we'll
+need a place to put them, too!
 
 * Our First Happy Strokes
 
-  #+BEGIN_QUOTE
-  “The secret to doing anything is believing that you can do
-  it. Anything that you believe you can do strong enough, you can
-  do. Anything. As long as you believe.”
-  #+END_QUOTE
+#+BEGIN_QUOTE
+“The secret to doing anything is believing that you can do
+it. Anything that you believe you can do strong enough, you can
+do. Anything. As long as you believe.”
+#+END_QUOTE
 
-  Up to this point, we haven't actually, really /done/ anything. We've
-  saved some nice constants, but we haven't made any changes to Emacs.
+Up to this point, we haven't actually, really /done/ anything. We've
+saved some nice constants, but we haven't made any changes to Emacs.
 
-  That ends now. So, pickup your brush and start painting!
+That ends now. So, pickup your brush and start painting!
 
 ** An Brief Introduction to Modes
 
-   /Modes/ are a very powerful idea in Emacs. Every time you open a
-   file, Emacs tries to decide what /Major Mode/ to use. Often times,
-   this is simply a package that knows how to work with files in that
-   language. For instance, there is a =markdown-mode=, a =lisp-mode=,
-   an =html-mode=, etc. For any given file, there is only *one* major
-   mode running at any given time.
+/Modes/ are a very powerful idea in Emacs. Every time you open a
+file, Emacs tries to decide what /Major Mode/ to use. Often times,
+this is simply a package that knows how to work with files in that
+language. For instance, there is a =markdown-mode=, a =lisp-mode=,
+an =html-mode=, etc. For any given file, there is only *one* major
+mode running at any given time.
 
-   /Minor Modes/, on the other hand, can run alongside the major mode,
-   as well as alongside each other. Emacs and package authors use
-   minor modes for all kinds of things. It's not uncommon for dozens
-   of minor modes to be running all the time.
+/Minor Modes/, on the other hand, can run alongside the major mode,
+as well as alongside each other. Emacs and package authors use
+minor modes for all kinds of things. It's not uncommon for dozens
+of minor modes to be running all the time.
 
-   As an example, here's our very first customization of a minor mode:
+As an example, here's our very first customization of a minor mode:
 
 *** Turning a Minor Mode /Off/
 
-   #+BEGIN_SRC emacs-lisp
-     (tool-bar-mode 0)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+    (tool-bar-mode 0)
+#+END_SRC
 
-   In this line of code, we're actually turning /off/ some of Emacs'
-   default behavior. Normally, when you open a window, you see an ugly
-   toolbar like this:
+In this line of code, we're actually turning /off/ some of Emacs'
+default behavior. Normally, when you open a window, you see an ugly
+toolbar like this:
 
-   [[./images/tool-bar.png]]
+[[./images/tool-bar.png]]
 
-   But because of =(tool-bar-mode 0)=, we won't see it at all! :100:
+But because of =(tool-bar-mode 0)=, we won't see it at all! :100:
 
 *** Turning a Minor Mode /On/
 
-    Now, here's an example of turning behavior /on/ with a mode:
+Now, here's an example of turning behavior /on/ with a mode:
 
-    #+BEGIN_SRC emacs-lisp
-     (global-display-line-numbers-mode 1)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+    (global-display-line-numbers-mode 1)
+#+END_SRC
 
-    :arrow_left: This bit of code turns on the line numbers in the left
-    gutter of the screen.
+:arrow_left: This bit of code turns on the line numbers in the left
+gutter of the screen.
 
 *** Other Convenient Minor Mode Settings
 
-    Here's some other defaults I like:
+Here's some other defaults I like:
 
-    #+BEGIN_SRC emacs-lisp
-     (show-paren-mode 1)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+    (show-paren-mode 1)
+#+END_SRC
 
-    To learn more about this minor mode, hover your cursor over the
-    text =show-paren-mode= and type =SPC h f=.
+To learn more about this minor mode, hover your cursor over the
+text =show-paren-mode= and type =SPC h f=.
 
-    (Don't know what =SPC h f= means? It means type these three keys,
-    one after the other: 1) the space bar, 2) the "h" key, and 3) the
-    "f" key. There's a name for keyboard commands typed in sequence
-    like this: /key chords/. They're used extensively in Emacs.)
+(Don't know what =SPC h f= means? It means type these three keys,
+one after the other: 1) the space bar, 2) the "h" key, and 3) the
+"f" key. There's a name for keyboard commands typed in sequence
+like this: /key chords/. They're used extensively in Emacs.)
 
-    #+BEGIN_SRC emacs-lisp
-     ;; Don't show items in the OS' menu bar
-     (menu-bar-mode 0)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+    ;; Don't show items in the OS' menu bar
+    (menu-bar-mode 0)
+#+END_SRC
 
-    Notice the lines above that start with =;;=? Those are comments in
-    Emacs Lisp. In fact, you only need one =;= to start a comment. But
-    it's common to use the number of colons to indicate the "document"
-    structure, in some sense. Here's an example:
+Notice the lines above that start with =;;=? Those are comments in
+Emacs Lisp. In fact, you only need one =;= to start a comment. But
+it's common to use the number of colons to indicate the "document"
+structure, in some sense. Here's an example:
 
-    #+BEGIN_SRC emacs-lisp
-      ;;;; This is a file header comment. It should only appear once in a document.
+#+BEGIN_SRC emacs-lisp
+    ;;;; This is a file header comment. It should only appear once in a document.
 
-      ;;; This is a section header comment. You can have as many as you like.
+    ;;; This is a section header comment. You can have as many as you like.
 
-      ;; This is a comment that goes above the line it's
-      ;; meant to comment on.
-      (scroll-bar-mode 0) ; and this goes inline with it.
-    #+END_SRC
+    ;; This is a comment that goes above the line it's
+    ;; meant to comment on.
+    (scroll-bar-mode 0) ; and this goes inline with it.
+#+END_SRC
 
-    What does the code up there actually do, then? It just hides
-    scroll bars. I don't like 'em. :smile:
+What does the code up there actually do, then? It just hides
+scroll bars. I don't like 'em. :smile:
 
 ** Setting Options with Variables
 
-   #+BEGIN_SRC emacs-lisp
-     (setq inhibit-startup-screen t
-	   initial-scratch-message nil
-	   display-line-numbers-type 'visual)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+    (setq inhibit-startup-screen t
+	initial-scratch-message nil
+	display-line-numbers-type 'visual)
+#+END_SRC
 
 * TODO Write this stuff up
-
+** Delete Trailing Whitespace
   #+BEGIN_SRC emacs-lisp
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   #+END_SRC
+** Define Functions
+*** Load Config File
+#+BEGIN_SRC emacs-lisp
+    (defun joy/load-config-file ()
+    "Load configuration file all over again."
+    (interactive)
+    (org-babel-load-file joy-config-file))
+#+END_SRC
+*** Edit Config File
+#+BEGIN_SRC emacs-lisp
+    (defun joy/edit-config-file ()
+    "Edit the configs."
+    (interactive)
+    (find-file joy-config-file))
+#+END_SRC
+*** Edit Theme File
+#+BEGIN_SRC emacs-lisp
+    (defun joy/edit-theme-file (x)
+    "Edit my custom theme. `C-u` visits it in customize."
+    (interactive "p")
+    (cond ((eq 4 x) (custom-theme-visit-theme 'joy))
+	    (t (find-file joy-theme-file))))
+#+END_SRC
+* Load Packages
 
-  #+BEGIN_SRC emacs-lisp
-     (defun joy/load-config-file ()
-       "Load configuration file all over again."
-       (interactive)
-       (org-babel-load-file joy-config-file))
-  #+END_SRC
+** Evil Mode
 
-  #+BEGIN_SRC emacs-lisp
-     (defun joy/edit-config-file ()
-       "Edit the configs."
-       (interactive)
-       (find-file joy-config-file))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :init
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+    :config
+    (evil-mode 1))
+#+END_SRC
 
-  #+BEGIN_SRC emacs-lisp
-     (defun joy/edit-theme-file (x)
-       "Edit my custom theme. `C-u` visits it in customize."
-       (interactive "p")
-       (cond ((eq 4 x) (custom-theme-visit-theme 'joy))
-	     (t (find-file joy-theme-file))))
-  #+END_SRC
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package evil
-      :init
-      (setq evil-want-integration t)
-      (setq evil-want-keybinding nil)
-      :config
-      (evil-mode 1))
-
-    (use-package evil-collection
-      :after evil
-      :config
-      (evil-collection-init))
-  #+END_SRC
-
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-collection
+    :after evil
+    :config
+    (evil-collection-init))
+#+END_SRC
+*** Evil-Org
   #+BEGIN_SRC emacs-lisp
     (use-package evil-org
       :after (evil)
@@ -422,28 +428,28 @@ editor.
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys))
   #+END_SRC
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package general
-      :config
-      (general-create-definer joy/set-leader-key
-	:prefix "SPC"
-	:non-normal-prefix "M-SPC"
-	:keymaps '(normal insert emacs visual))
-      (general-create-definer joy/set-localleader-key
-	:prefix ","
-	:non-normal-prefix "M-,")
-      (general-create-definer joy/set-help-key
-	:prefix "C-h"))
-  #+END_SRC
-
+** General.el
+#+BEGIN_SRC emacs-lisp
+(use-package general
+    :config
+    (general-create-definer joy/set-leader-key
+    :prefix "SPC"
+    :non-normal-prefix "M-SPC"
+    :keymaps '(normal insert emacs visual))
+    (general-create-definer joy/set-localleader-key
+    :prefix ","
+    :non-normal-prefix "M-,")
+    (general-create-definer joy/set-help-key
+    :prefix "C-h"))
+#+END_SRC
+** Which Key
   #+BEGIN_SRC emacs-lisp
      (straight-use-package 'which-key)
      (require 'which-key)
      (which-key-mode)
      (which-key-setup-side-window-right-bottom)
   #+END_SRC
-
+** Restart Emacs
   #+BEGIN_SRC emacs-lisp
    (straight-use-package 'restart-emacs)
    (require 'restart-emacs)
