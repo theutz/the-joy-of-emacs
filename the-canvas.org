@@ -410,6 +410,7 @@ scroll bars. I don't like 'em. :smile:
     :config
     (global-undo-tree-mode))
 #+END_SRC
+
 ** Evil Mode
 
 #+BEGIN_QUOTE
@@ -468,7 +469,7 @@ more.
     :config
     (evil-collection-init))
 #+END_SRC
-*** Evil-Org
+*** Evil Org
   #+BEGIN_SRC emacs-lisp
     (use-package evil-org
       :after (evil)
@@ -478,6 +479,14 @@ more.
       :config
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys))
+  #+END_SRC
+
+** Evil Surround
+
+  #+BEGIN_SRC emacs-lisp
+     (straight-use-package 'evil-surround)
+     (require 'evil-surround)
+     (global-evil-surround-mode 1)
   #+END_SRC
 
 ** General.el
@@ -510,7 +519,9 @@ key sequences (like the leader key in vim), and much more.
       :prefix ","
       :non-normal-prefix "M-,")
       (general-create-definer joy/set-help-key
-      :prefix "C-h"))
+	:prefix "C-h")
+      (joy/set-leader-key :infix "w"
+	"" `(,(general-simulate-key "C-w") :wk "+Window")))
 #+END_SRC
 
 ** Which Key
@@ -545,20 +556,96 @@ Emacs relative line number based on nlinum-mode
     :hook (prog-mode . nlinum-relative-mode))
 #+END_SRC
 
+** Org Mode
+
+| [[https://code.orgmode.org/bzg/org-mode][Repo]] | [[file:straight/repos/org/README][README]] |
+
+Since we use Org to generate the tangled version of /this/ very
+document, we load and configure it in [[file:init.el::36][init.el]].
+
+*** Org Bullets
+
+| [[https://github.com/sabof/org-bullets][Repo]] | [[file:straight/repos/org-bullets/README.org][README]] |
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :hook (org-mode . (lambda ()
+			(org-bullets-mode 1))))
+#+END_SRC
+
 ** Restart Emacs
 
   #+BEGIN_SRC emacs-lisp
-   (straight-use-package 'restart-emacs)
-   (require 'restart-emacs)
+    (use-package restart-emacs)
   #+END_SRC
 
-** Helm
+** Counsel
 
   #+BEGIN_SRC emacs-lisp
-     (straight-use-package 'helm)
-     (require 'helm)
-     (helm-mode 1)
+    (use-package counsel
+      :after ivy
+      :general
+      (joy/set-leader-key "SPC" '(counsel-M-x :wk "M-x"))
+      :custom
+      (ivy-use-virtual-buffers t)
+      :config
+      (counsel-mode))
   #+END_SRC
+
+** Ivy
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package ivy
+      :defer 0.1
+      :diminish
+      :config
+      (ivy-mode))
+  #+END_SRC
+
+** Ivy Rich
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-rich
+    :after ivy
+    :config
+    (ivy-rich-mode 1))
+#+END_SRC
+
+** Doom Themes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-themes
+    :config
+    (setq doom-themes-enable-bold t
+          doom-themes-enable-italic t)
+    (load-theme 'doom-oceanic-next t)
+
+    (doom-themes-visual-bell-config)
+    (doom-themes-org-config))
+#+END_SRC
+
+** Doom Modeline
+
+| [[https://github.com/seagle0128/doom-modeline][Repo]] | [[file:straight/repos/doom-modeline/README.md][README]] |
+
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-modeline
+    :init
+    (doom-modeline-mode 1))
+#+END_SRC
+
+** All The Icons
+
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons)
+#+END_SRC
+
+** Swiper
+
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :after ivy)
+#+END_SRC
 
 ** Emojify
 
@@ -584,7 +671,7 @@ Emacs relative line number based on nlinum-mode
      (require 'helpful)
 
      (joy/set-leader-key :infix "h"
-       "" `(,(general-simulate-key "C-h") :wk "HAPPY Help"))
+       "" `(,(general-simulate-key "C-h") :wk "+Help"))
 
      (joy/set-help-key "f" '(helpful-callable :wk "Callable")
        "v" '(helpful-variable :wk "Variable")
@@ -629,14 +716,6 @@ Emacs relative line number based on nlinum-mode
      (add-hook 'lisp-mode-hook 'enable-paredit-mode)
      (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
      (add-hook 'scheme-mode-hook 'enable-paredit-mode)
-  #+END_SRC
-
-** Evil Surround
-
-  #+BEGIN_SRC emacs-lisp
-     (straight-use-package 'evil-surround)
-     (require 'evil-surround)
-     (global-evil-surround-mode 1)
   #+END_SRC
 
 ** Company
@@ -743,12 +822,7 @@ Emacs relative line number based on nlinum-mode
 
   #+BEGIN_SRC emacs-lisp
     (general-define-key :states '(normal)
-			"RET" '(org-open-at-point :wk "HAPPY Open"))
-  #+END_SRC
-
-  #+BEGIN_SRC emacs-lisp
-     (joy/set-leader-key "" '(:ignore t :wk "HAPPY Leader")
-       "SPC" '(helm-M-x :wk "HAPPY M-x"))
+			"RET" '(org-open-at-point :wk "Open"))
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
@@ -759,13 +833,13 @@ Emacs relative line number based on nlinum-mode
 
   #+BEGIN_SRC emacs-lisp
     (joy/set-leader-key :infix "f"
-      "" '(:ignore t :wk "HAPPY Files")
-      "s" '(save-buffer :wk "HAPPY Save"))
+      "" '(:ignore t :wk "Files")
+      "s" '(save-buffer :wk "Save"))
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
      (joy/set-leader-key :infix "f j"
-       "" '(:ignore t :wk "HAPPY Config")
+       "" '(:ignore t :wk "Config")
        "e" '(joy/edit-config-file :wk "Edit")
        "r" '(joy/load-config-file :wk "Reload"))
   #+END_SRC
