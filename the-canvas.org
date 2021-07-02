@@ -399,17 +399,68 @@ scroll bars. I don't like 'em. :smile:
 	    (t (find-file joy-theme-file))))
 #+END_SRC
 * Load Packages
+** Undo Tree
 
+| Repo                               | Documentation                           |
+|------------------------------------+-----------------------------------------|
+| [[https://gitlab.com/tsc25/undo-tree]] | [[https://www.dr-qubit.org/undo-tree.html]] |
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :config
+    (global-undo-tree-mode))
+#+END_SRC
 ** Evil Mode
+
+#+BEGIN_QUOTE
+Evil is an extensible vi layer for Emacs. It emulates the main
+features of Vim, and provides facilities for writing custom
+extensions.
+#+END_QUOTE
+
+| [[https://github.com/emacs-evil/evil][Repo]] | [[https://evil.readthedocs.io/en/latest/index.html][Docs]] | [[file:straight/repos/evil/README.md][README]] |
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil
+    :after (undo-tree) ;; Required for C-r to work
     :init
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
+    ;; Keybindings and other behavior
+    (setq evil-toggle-key "C-z"
+	  evil-want-C-i-jump t
+	  evil-want-C-u-delete t
+	  evil-want-C-u-scroll t
+	  evil-want-C-u-scroll t
+	  evil-want-C-d-scroll t
+	  evil-want-C-w-delete nil
+	  evil-want-Y-yank-to-eol t)
+
+    ;; Indentation
+    (setq evil-auto-indent t
+	  evil-shift-width 2
+	  evil-indent-convert-tabs t)
+
+    ;; Window management
+    (setq evil-split-window-below t
+	  evil-vsplit-window-right t)
+
+    ;; Miscellaneous
+    (setq evil-want-fine-undo t
+	  evil-undo-system 'undo-tree
+	  evil-want-integration t
+	  evil-want-keybinding nil)
     :config
     (evil-mode 1))
 #+END_SRC
+
+*** Evil Collection
+
+#+BEGIN_QUOTE
+This is a collection of [[https://github.com/emacs-evil/evil][Evil]] bindings for /the parts of Emacs/ that Evil does
+not cover properly by default, such as ~help-mode~, ~M-x calendar~, Eshell and
+more.
+#+END_QUOTE
+
+| [[https://github.com/emacs-evil/evil-collection][Repo]] | [[file:straight/repos/evil-collection/readme.org][README]] |
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-collection
@@ -428,28 +479,74 @@ scroll bars. I don't like 'em. :smile:
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys))
   #+END_SRC
+
 ** General.el
+
+#+BEGIN_QUOTE
+=general.el= provides a more convenient method for binding keys in
+emacs (for both evil and non-evil users). Like =use-package=, which
+provides a convenient, unified interface for managing packages,
+=general.el= is intended to provide a convenient, unified interface
+for key definitions. While this package does implement some completely
+new functionality (such as the ability to make vim-style keybindings
+under non-prefix keys with an optional timeout), its primary purpose
+is to build on existing functionality to make key definition more
+clear and concise. ~general-define-key~ is user-extensible and
+supports defining multiple keys in multiple keymaps at once,
+implicitly wrapping key strings with ~(kbd ...)~, using named prefix
+key sequences (like the leader key in vim), and much more.
+#+END_QUOTE
+
+| [[https://github.com/noctuid/general.el/tree/master][Repo]]  | [[file:straight/repos/general.el/README.org][README]] |
+
 #+BEGIN_SRC emacs-lisp
-(use-package general
-    :config
-    (general-create-definer joy/set-leader-key
-    :prefix "SPC"
-    :non-normal-prefix "M-SPC"
-    :keymaps '(normal insert emacs visual))
-    (general-create-definer joy/set-localleader-key
-    :prefix ","
-    :non-normal-prefix "M-,")
-    (general-create-definer joy/set-help-key
-    :prefix "C-h"))
+  (use-package general
+      :config
+      (general-create-definer joy/set-leader-key
+      :prefix "SPC"
+      :non-normal-prefix "M-SPC"
+      :keymaps '(normal insert emacs visual))
+      (general-create-definer joy/set-localleader-key
+      :prefix ","
+      :non-normal-prefix "M-,")
+      (general-create-definer joy/set-help-key
+      :prefix "C-h"))
 #+END_SRC
+
 ** Which Key
-  #+BEGIN_SRC emacs-lisp
-     (straight-use-package 'which-key)
-     (require 'which-key)
-     (which-key-mode)
-     (which-key-setup-side-window-right-bottom)
-  #+END_SRC
+
+#+BEGIN_QUOTE
+=which-key= is a minor mode for Emacs that displays the key bindings
+following your currently entered incomplete command (a prefix) in a
+popup.
+#+END_QUOTE
+
+| [[https://github.com/justbur/emacs-which-key][Repo]] | [[file:straight/repos/emacs-which-key/README.org][README]] |
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :config
+    (which-key-mode)
+    (which-key-setup-side-window-bottom))
+#+END_SRC
+
+** nlinum-relative
+
+#+BEGIN_QUOTE
+Emacs relative line number based on nlinum-mode
+#+END_QUOTE
+
+| [[https://github.com/xcodebuild/nlinum-relative][Repo]] | [[file:straight/repos/nlinum-relative/README.md][README]] |
+
+#+BEGIN_SRC emacs-lisp
+  (use-package nlinum-relative
+    :config
+    (nlinum-relative-setup-evil)
+    :hook (prog-mode . nlinum-relative-mode))
+#+END_SRC
+
 ** Restart Emacs
+
   #+BEGIN_SRC emacs-lisp
    (straight-use-package 'restart-emacs)
    (require 'restart-emacs)
@@ -484,6 +581,7 @@ scroll bars. I don't like 'em. :smile:
      (joy/set-help-key "f" '(helpful-callable :wk "Callable")
        "v" '(helpful-variable :wk "Variable")
        "x" '(helpful-at-point :wk "At Point")
+
        "k" '(helpful-at-key :wk "Key")
        "F" '(helpful-function :wk "Function")
        "c" '(helpful-command :wk "Command"))
