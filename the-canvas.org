@@ -317,7 +317,7 @@ But because of =(tool-bar-mode 0)=, we won't see it at all! :100:
 Now, here's an example of turning behavior /on/ with a mode:
 
 #+BEGIN_SRC emacs-lisp
-    (global-display-line-numbers-mode 1)
+    ;(global-display-line-numbers-mode 1)
 #+END_SRC
 
 :arrow_left: This bit of code turns on the line numbers in the left
@@ -370,6 +370,12 @@ scroll bars. I don't like 'em. :smile:
 	display-line-numbers-type 'visual)
 #+END_SRC
 
+** Settings Options with Lists
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
+
 * TODO Write this stuff up
 ** Delete Trailing Whitespace
   #+BEGIN_SRC emacs-lisp
@@ -401,9 +407,7 @@ scroll bars. I don't like 'em. :smile:
 * Load Packages
 ** Undo Tree
 
-| Repo                               | Documentation                           |
-|------------------------------------+-----------------------------------------|
-| [[https://gitlab.com/tsc25/undo-tree]] | [[https://www.dr-qubit.org/undo-tree.html]] |
+| [[https://gitlab.com/tsc25/undo-tree][Repo]] | [[https://www.dr-qubit.org/undo-tree.html][Documentation]] |
 
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
@@ -481,7 +485,7 @@ more.
       (evil-org-agenda-set-keys))
   #+END_SRC
 
-** Evil Surround
+*** Evil Surround
 
   #+BEGIN_SRC emacs-lisp
      (straight-use-package 'evil-surround)

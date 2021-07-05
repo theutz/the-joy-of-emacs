@@ -71,3 +71,4 @@ flycheck_*.el
 
 # my literate config
 /the-canvas.el
+recentf
